@@ -50,10 +50,10 @@ Tài liệu nền tảng: [Android WebView](https://developer.android.com/develo
 
 ## Chặn quảng cáo
 
-Bật sẵn trong ứng dụng: chặn 3.566 tên miền quảng cáo/theo dõi (gồm tên miền con), cửa sổ mới, banner tài trợ và quảng cáo nổi. Có quy tắc riêng cho chophim.cam/chophim.lat: chặn `/ads/`, ẩn liên kết tài trợ, nội dung có nhãn quảng cáo và lớp nền popup; theo dõi phần tử được thêm sau khi trang tải. Giữ DOM để không làm hỏng React và trình phát.
+Bật sẵn trên mọi website: 9.839 tên miền quảng cáo/theo dõi (gồm tên miền con), tài nguyên trong các đường dẫn quảng cáo phổ biến, cửa sổ mới, banner tài trợ, ô quảng cáo và lớp nền popup. Áp dụng chung, không phụ thuộc chophim.cam. Theo dõi phần tử thêm mới hoặc đổi thuộc tính và xử lý iframe cùng nguồn. Giữ DOM, thanh điều hướng, biểu mẫu và trình phát bên trong khung cố định để hạn chế chặn nhầm. Quy tắc đường dẫn chỉ áp dụng cho tài nguyên con, giữ các trang nội dung có đường dẫn trùng tên.
 
-Nguồn danh sách: Peter Lowe, https://pgl.yoyo.org/adservers/ (bản cập nhật 07/11/2026; ghi nguồn và chính sách trong assets/ad-hosts.txt). Các tên miền quảng cáo quan sát trên Chợ Phim được bổ sung trong AdBlock.java. Danh sách được đóng gói để dùng độc lập với máy tính, chưa tự cập nhật.
+Nguồn danh sách: Peter Lowe, https://pgl.yoyo.org/adservers/ (bản cập nhật 07/11/2026; ghi nguồn và chính sách trong assets/ad-hosts.txt). Kết hợp AdAway default blocklist từ https://adaway.org/hosts.txt (CC Attribution 3.0, giữ nguyên ghi công và giấy phép trong file). Các tên miền quảng cáo đã quan sát được bổ sung trong AdBlock.java. Danh sách được đóng gói để dùng độc lập với máy tính, chưa tự cập nhật.
 
-Kiểm tra quy tắc: `java -cp build/classes vn.lan.tvbrowser.AdBlock assets/ad-hosts.txt`. Kiểm tra trên tivi thật: `python test_adblock.py`. Trạng thái `/state` có số yêu cầu bị chặn và phần tử quảng cáo đã ẩn.
+Kiểm tra quy tắc: `java -cp build/classes vn.lan.tvbrowser.AdBlock assets/ad-hosts.txt`. Kiểm tra trên tivi thật: `python test_adblock.py`. Kiểm tra chung dùng hai hostname độc lập với Chợ Phim, quảng cáo xuất hiện muộn/đổi thuộc tính, iframe, lớp phủ; xác nhận video và thanh điều hướng không bị ẩn. Trạng thái `/state` có số yêu cầu bị chặn và phần tử quảng cáo đã ẩn.
 
 Không đảm bảo loại bỏ quảng cáo được ghép sẵn vào hình ảnh/video hoặc mọi quảng cáo mới chưa có quy tắc. Nội dung trong iframe khác nguồn được lọc tên miền ở tầng mạng; không sửa DOM bên trong iframe đó.

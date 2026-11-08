@@ -72,14 +72,14 @@ public class BrowserActivity extends Activity {
         android.webkit.CookieManager.getInstance().setAcceptCookie(true);
         web.setWebViewClient(new WebViewClient() {
             @Override public WebResourceResponse shouldInterceptRequest(WebView v,WebResourceRequest r) {
-                if(adBlock.blocks(r.getUrl().getHost(),r.getUrl().getPath())) {
+                if(adBlock.blocks(r.getUrl().getHost(),r.getUrl().getPath(),r.isForMainFrame())) {
                     blockedAds.incrementAndGet();
                     return new WebResourceResponse("text/plain","UTF-8",204,"No Content",Collections.singletonMap("Access-Control-Allow-Origin","*"),new ByteArrayInputStream(new byte[0]));
                 }
                 return null;
             }
             @Override public boolean shouldOverrideUrlLoading(WebView v, WebResourceRequest r) {
-                if(adBlock.blocks(r.getUrl().getHost(),r.getUrl().getPath())) {blockedAds.incrementAndGet();return true;}
+                if(adBlock.blocks(r.getUrl().getHost(),r.getUrl().getPath(),r.isForMainFrame())) {blockedAds.incrementAndGet();return true;}
                 if (r.isForMainFrame() && isVideoUrl(r.getUrl().toString())) { openUrl(r.getUrl().toString());return true; }
                 return !isWeb(r.getUrl().toString());
             }
